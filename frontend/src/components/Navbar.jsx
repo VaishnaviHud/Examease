@@ -12,7 +12,7 @@ const Navbar = () => {
   const handleLogout = () => {
     logout(() => {
       navigate("/");
-      window.location.reload();
+      
     });
   };
 
