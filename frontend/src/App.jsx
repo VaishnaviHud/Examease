@@ -15,6 +15,7 @@ import AdminRegister from "./pages/AdminRegister";
 import StudentRegister from "./pages/StudentRegister";
 import TeacherRegister from "./pages/TeacherRegister";
 import Navbar from "./components/Navbar";
+import SeatingPage from "./pages/SeatingPage";
 
 const App = () => {
   return (
@@ -34,6 +35,8 @@ const App = () => {
         <Route path="/admin/add-exam" element={<AddExam />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
         <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
+        <Route path="/seating-arrangment" element={<SeatingPage />} />
+        
       </Routes>
     </Router>
   );
