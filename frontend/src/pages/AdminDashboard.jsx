@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // ✅ Import Link
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -39,7 +40,7 @@ const AdminDashboard = () => {
     setVerifying(id);
     try {
       await axios.put(
-        `http://localhost:4000/api/${type}/verify/${id}`,
+        `http://localhost:4000/api/${type}/verify/${id}`, // ✅ Ensure the correct endpoint
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -77,6 +78,16 @@ const AdminDashboard = () => {
         </div>
       ) : (
         <>
+          {/* Add New Exam Button (Correct Placement) */}
+          <div className="mb-6 text-center">
+            <Link
+              to="/admin/add-exam"
+              className="bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-700"
+            >
+              ➕ Add New Exam
+            </Link>
+          </div>
+
           {/* Students Section */}
           <section>
             <h2 className="text-2xl font-semibold text-gray-700 mb-4">

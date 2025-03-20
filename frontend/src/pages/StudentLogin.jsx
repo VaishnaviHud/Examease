@@ -1,10 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useAuth } from "../context/AuthContext"; // Import AuthContext
+import { jwtDecode } from "jwt-decode";
 
 const StudentLogin = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const { login } = useAuth(); // Use login function from AuthContext
+  const navigate = useNavigate(); // Navigation hook
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,7 +22,18 @@ const StudentLogin = () => {
         "http://localhost:4000/api/students/login",
         formData
       );
-      localStorage.setItem("token", data.token);
+      
+      const token = data.token;
+      localStorage.setItem("token", token);
+      login(token); // Update AuthContext state
+
+      const decodedUser = jwtDecode(token);
+      if (decodedUser.role === "student") {
+        navigate("/"); // Redirect to Student Dashboard
+      } else {
+        navigate("/"); // Fallback
+      }
+
       toast.success("Login successful!");
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed.");

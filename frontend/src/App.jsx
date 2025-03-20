@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./index.css"; 
 import Home from "./pages/Home";
 import AdminDashboard from "./pages/AdminDashboard";
+import AddExam from "./pages/AddExam";
 import StudentDashboard from "./pages/StudentDashboard";
 import TeacherDashboard from "./pages/TeacherDashboard";
 
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/teacher-register" element={<TeacherRegister />} />
         {/* Dashboard Routes */}
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/add-exam" element={<AddExam />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
         <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
       </Routes>

@@ -93,24 +93,7 @@ const Navbar = () => {
           </>
         )}
 
-        {/* Auth Links */}
-        {!user ? (
-          <>
-            <Link to="/admin-login" className="hover:text-gray-300 transition">
-              Login
-            </Link>
-            <Link to="/register" className="hover:text-gray-300 transition">
-              Register
-            </Link>
-          </>
-        ) : (
-          <button
-            onClick={handleLogout}
-            className="bg-red-500 px-4 py-2 rounded-lg hover:bg-red-600 transition"
-          >
-            Logout
-          </button>
-        )}
+       
       </div>
     </motion.nav>
   );

@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext"; // Import AuthContext
+import { jwtDecode } from "jwt-decode";
 
 const AdminLogin = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -22,10 +23,18 @@ const AdminLogin = () => {
         formData
       );
 
-      login(data.token); // Save token & update auth state
-      toast.success("Login successful!");
+      const token = data.token;
+      localStorage.setItem("token", token);
+      login(token); // Save token & update auth state
 
-      setTimeout(() => navigate("/admin-dashboard"), 2000);
+      const decodedUser = jwtDecode(token);
+      if (decodedUser.role === "admin") {
+        toast.success("Login successful!");
+        setTimeout(() => navigate("/"), 2000);
+      } else {
+        toast.error("Unauthorized access!");
+        localStorage.removeItem("token");
+      }
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed.");
     }
