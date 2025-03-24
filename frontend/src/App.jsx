@@ -7,6 +7,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AddExam from "./pages/AddExam";
 import StudentDashboard from "./pages/StudentDashboard";
 import TeacherDashboard from "./pages/TeacherDashboard";
+import SubjectList from "./pages/subjectList";
 
 import AdminLogin from "./pages/AdminLogin";
 import StudentLogin from "./pages/StudentLogin";
@@ -38,6 +39,7 @@ const App = () => {
         <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
         <Route path="/seating-arrangment" element={<SeatingPage />} />
         <Route path="/rooms" element={<RoomsList />} />
+        <Route path="/subjects" element={<SubjectList />} />
         
         
       </Routes>

@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "@/components/Navbar";
 import RoomsList from "./RoomList";
+import SubjectList from "./subjectList";
 
 const AdminDashboard = () => {
   const [students, setStudents] = useState([]);
@@ -86,7 +87,7 @@ const AdminDashboard = () => {
               </Link>
             </li>
             <li>
-              <Link to="/add-subject" className="flex items-center p-3 text-white rounded-lg hover:bg-blue-700 transition-all">
+              <Link to="/subjects" className="flex items-center p-3 text-white rounded-lg hover:bg-blue-700 transition-all">
                 <span className="ml-2">Add Subject</span>
               </Link>
             </li>
@@ -247,7 +248,7 @@ const AdminDashboard = () => {
 
           <Routes>
             <Route path="/rooms" element={<RoomsList />} />
-            <Route path="/add-subject" element={<Navbar />} />
+            <Route path="/subjects" element={<SubjectList />} />
             <Route path="/add-exam" element={<Navbar />} />
             <Route path="/seating-arrangement" element={<Navbar />} />
           </Routes>
