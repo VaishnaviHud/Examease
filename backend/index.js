@@ -3,7 +3,8 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import studentRoutes from "./routes/studentRoutes.js"; 
 import teacherRoutes from "./routes/teacherRoutes.js";
-import adminRoutes from "./routes/adminRoutes.js"
+import adminRoutes from "./routes/adminRoutes.js";
+import roomRoutes from "./routes/roomRoutes.js"
 import cors from "cors";
 
 dotenv.config();
@@ -21,6 +22,7 @@ mongoose
 app.use("/api/students", studentRoutes);
 app.use("/api/teachers", teacherRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/rooms",roomRoutes);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
