@@ -6,6 +6,7 @@ import teacherRoutes from "./routes/teacherRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import roomRoutes from "./routes/roomRoutes.js";
 import subjectRoutes from "./routes/subjectRoutes.js"
+import examRoutes from "./routes/examRoutes.js";
 import cors from "cors";
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use("/api/teachers", teacherRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/rooms",roomRoutes);
 app.use("/api/subjects",subjectRoutes);
+app.use("/api/exams", examRoutes); // Add exam routes here
 
 
 const PORT = process.env.PORT || 4000;

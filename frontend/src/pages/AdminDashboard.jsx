@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Navbar from "@/components/Navbar";
 import RoomsList from "./RoomList";
 import SubjectList from "./subjectList";
+import ExamList from "./ExamPage";
 
 const AdminDashboard = () => {
   const [students, setStudents] = useState([]);
@@ -92,7 +93,7 @@ const AdminDashboard = () => {
               </Link>
             </li>
             <li>
-              <Link to="/rooms" className="flex items-center p-3 text-white rounded-lg hover:bg-blue-700 transition-all">
+              <Link to="/exampage" className="flex items-center p-3 text-white rounded-lg hover:bg-blue-700 transition-all">
                 <span className="ml-2">Add Exam</span>
               </Link>
             </li>
@@ -125,7 +126,7 @@ const AdminDashboard = () => {
               {/* Add New Exam Button */}
               <div className="mb-6 text-center">
                 <Link
-                  to="/admin/add-exam"
+                  to="exampage"
                   className="bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-700"
                 >
                   ➕ Add New Exam
@@ -249,7 +250,7 @@ const AdminDashboard = () => {
           <Routes>
             <Route path="/rooms" element={<RoomsList />} />
             <Route path="/subjects" element={<SubjectList />} />
-            <Route path="/add-exam" element={<Navbar />} />
+            <Route path="/exampage" element={<ExamList />} />
             <Route path="/seating-arrangement" element={<Navbar />} />
           </Routes>
         </main>

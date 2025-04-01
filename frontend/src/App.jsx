@@ -18,6 +18,7 @@ import TeacherRegister from "./pages/TeacherRegister";
 import Navbar from "./components/Navbar";
 import SeatingPage from "./pages/SeatingPage";
 import RoomsList from "./pages/RoomList";
+import ExamList from "./pages/ExamPage";
 
 const App = () => {
   return (
@@ -40,6 +41,8 @@ const App = () => {
         <Route path="/seating-arrangment" element={<SeatingPage />} />
         <Route path="/rooms" element={<RoomsList />} />
         <Route path="/subjects" element={<SubjectList />} />
+        <Route path="/exampage" element={<ExamList />} />
+
         
         
       </Routes>
