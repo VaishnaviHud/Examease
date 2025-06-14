@@ -8,6 +8,7 @@ import adminRoutes from "./routes/adminRoutes.js";
 import roomRoutes from "./routes/roomRoutes.js";
 import subjectRoutes from "./routes/subjectRoutes.js"
 import examRoutes from "./routes/examRoutes.js";
+import seatingRoute from "./routes/seatingRoutes.js"
 import cors from "cors";
 
 dotenv.config();
@@ -28,6 +29,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/rooms",roomRoutes);
 app.use("/api/subjects",subjectRoutes);
 app.use("/api/exams", examRoutes); // Add exam routes here
+app.use("/api/seating",seatingRoute);
 
 
 const PORT = process.env.PORT || 4000;
