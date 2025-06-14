@@ -19,6 +19,7 @@ import Navbar from "./components/Navbar";
 import SeatingPage from "./pages/SeatingPage";
 import RoomsList from "./pages/RoomList";
 import ExamList from "./pages/ExamPage";
+import GradeStudents from "./pages/GradeStudents";
 
 const App = () => {
   return (
@@ -42,6 +43,7 @@ const App = () => {
         <Route path="/rooms" element={<RoomsList />} />
         <Route path="/subjects" element={<SubjectList />} />
         <Route path="/exampage" element={<ExamList />} />
+        <Route path="/grade-students" element={<GradeStudents />} />
 
         
         
