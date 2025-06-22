@@ -38,6 +38,8 @@
 // export default router;
 // controllers/examController.js
 import express from "express";
+import { addMarks } from "../controllers/marks.controller.js";
+import { verifyFaculty } from "../middlewares/authMiddleware.js"; 
 import {
   createExam,
   getAllExams,
@@ -47,6 +49,16 @@ import {
   getAllSubjects,
   getAllTeachers
 } from "../controllers/exam.controller.js";
+// import { getExamsByBranch } from "../controllers/exam.controller.js";
+// routes/examRoutes.js
+import { getExamsByBranchAndSemester } from "../controllers/exam.controller.js";
+//getExamsByBranchAndSemester
+// routes/examRoutes.js
+// import { addMarks } from "../controllers/marks.controller.js";
+
+
+
+
 
 const router = express.Router();
 
@@ -55,6 +67,8 @@ router.post("/create", createExam);
 
 // Route to get all exams
 router.get("/all", getAllExams);
+// Add this dynamic route ABOVE the /:id route
+router.get("/branch/:branch/semester/:semester", getExamsByBranchAndSemester);
 
 // Route to get an exam by ID
 router.get("/:id", getExamById);
@@ -70,5 +84,11 @@ router.get("/subjects/all", getAllSubjects);
 
 // Route to get all teachers (for supervisor assignment)
 router.get("/teachers/all", getAllTeachers);
+router.post("/add", verifyFaculty, addMarks);
+// router.get("/filter", getExamsByBranch);
+
+//router.get("/by-branch-semester",getExamsByBranchAndSemester);
+
+// router.post("/add-marks", verifyFaculty, addMarks);
 
 export default router;

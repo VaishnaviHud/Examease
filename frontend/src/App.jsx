@@ -20,6 +20,8 @@ import SeatingPage from "./pages/SeatingPage";
 import RoomsList from "./pages/RoomList";
 import ExamList from "./pages/ExamPage";
 import GradeStudents from "./pages/GradeStudents";
+import ViewGrades from "./pages/ViewGrades"; // Adjust path if different
+
 
 const App = () => {
   return (
@@ -44,6 +46,7 @@ const App = () => {
         <Route path="/subjects" element={<SubjectList />} />
         <Route path="/exampage" element={<ExamList />} />
         <Route path="/grade-students" element={<GradeStudents />} />
+         <Route path="/view-grades" element={<ViewGrades />} />
 
         
         

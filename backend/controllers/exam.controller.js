@@ -2,6 +2,7 @@ import Exam from "../models/Exam.js";
 import Subject from "../models/Subject.js";
 import Student from "../models/Student.js";
 import Teacher from "../models/Teacher.js";
+import Marks from "../models/Marks.js";
 import { v4 as uuidv4 } from "uuid";
 
 // Create a new exam
@@ -174,5 +175,66 @@ export const getAllTeachers = async (req, res) => {
     res.status(200).json(teachers);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+export const addMarks = async (req, res) => {
+  try {
+    const { student_id, subject_id, exam_id, marks_obtained, total_marks } = req.body;
+    const graded_by = req.user._id; // Make sure verifyFaculty sets req.user
+
+    // Optional: prevent duplicate entries
+    const exists = await Marks.findOne({ student_id, subject_id, exam_id });
+    if (exists) {
+      return res.status(400).json({ message: "Marks already entered for this student in this exam." });
+    }
+
+    const newMarks = new Marks({
+      student_id,
+      subject_id,
+      exam_id,
+      marks_obtained,
+      total_marks,
+      graded_by,
+    });
+
+    await newMarks.save();
+    res.status(201).json({ message: "Marks submitted successfully." });
+  } catch (err) {
+    res.status(500).json({ message: "Error adding marks", error: err });
+  }
+};
+
+
+// controllers/exam.controller.js
+// export const getExamsByBranchAndSemester = async (req, res) => {
+//   try {
+//     const { branch, semester } = req.params;
+
+//     const exams = await Exam.find({ branch, semester });
+
+//     res.status(200).json(exams);
+//   } catch (error) {
+//     console.error("Error fetching exams:", error);
+//     res.status(500).json({ message: "Internal server error", error });
+//   }
+// };
+
+export const getExamsByBranchAndSemester = async (req, res) => {
+  try {
+    const { branch, semester } = req.params;
+
+    const exams = await Exam.find({ semester }) // Step 1: filter by semester
+      .populate({
+        path: "subject_id",
+        match: { branch }, // Step 2: match only subjects of given branch
+      });
+
+    // Step 3: filter out null subjects (those that didn’t match the branch)
+    const filteredExams = exams.filter((exam) => exam.subject_id !== null);
+
+    res.status(200).json(filteredExams);
+  } catch (error) {
+    console.error("Error in getExamsByBranchAndSemester:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };

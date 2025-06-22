@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
- import studentRoutes from "./routes/student.route.js"; 
+import studentRoutes from "./routes/student.route.js"; 
 
 import teacherRoutes from "./routes/teacherRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
@@ -10,6 +10,9 @@ import subjectRoutes from "./routes/subjectRoutes.js"
 import examRoutes from "./routes/examRoutes.js";
 import seatingRoute from "./routes/seatingRoutes.js"
 import cors from "cors";
+import marksRoutes from "./routes/marksRoutes.js";
+// import subjectRoutes from "./routes/subjectsRoutes.js";
+
 
 dotenv.config();
 const app = express();
@@ -19,9 +22,9 @@ app.use(cors());
 
 const MONGO_URI = process.env.MONGO_URI;
 mongoose
-  .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => console.log("MongoDB connected"))
+.catch((err) => console.error("MongoDB connection error:", err));
 
 app.use("/api/students", studentRoutes);
 app.use("/api/teachers", teacherRoutes);
@@ -30,6 +33,12 @@ app.use("/api/rooms",roomRoutes);
 app.use("/api/subjects",subjectRoutes);
 app.use("/api/exams", examRoutes); // Add exam routes here
 app.use("/api/seating",seatingRoute);
+// app.use("/api/subjects", subjectRoutes); 
+app.use("/api/marks", marksRoutes);
+
+// app.use("/api/marks", marksRoutes);
+console.log("✅ marksRoutes mounted at /api/marks");
+
 
 
 const PORT = process.env.PORT || 4000;

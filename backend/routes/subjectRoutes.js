@@ -1,6 +1,7 @@
 import express from "express";
 import Subject from "../models/Subject.js";
 import Teacher from "../models/Teacher.js";
+import { getAllSubjects } from "../controllers/marks.controller.js";
 
 const router = express.Router();
 
@@ -38,4 +39,13 @@ router.get("/teachers", async (req, res) => {
   }
 });
 
+
+
+
+// GET /api/subjects
+router.get("/", getAllSubjects);
+
+
+
 export default router;
+
