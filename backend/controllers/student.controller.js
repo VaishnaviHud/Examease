@@ -100,17 +100,28 @@ export const loginStudent = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
+    // ✅ Use student instead of user
     const token = jwt.sign(
-      { id: student._id, role: student.role },
-      process.env.JWT_SECRET,
       {
-        expiresIn: "1h",
-      }
+        id: student._id,
+        email: student.email,
+        role: "student", // or student.role if available
+        branch: student.branch,
+        semester: student.semester,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
     );
-
-    res.status(200).json({ message: "Login successful", token, student });
+    res.status(200).json({
+      message: "Login successful",
+      token,
+      student, // you can optionally include this
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error logging in", error: error.message });
+    res.status(500).json({
+      message: "Error logging in",
+      error: error.message,
+    });
   }
 };
 
@@ -236,26 +247,26 @@ export const getUnverifiedStudents = async (req, res) => {
 };
 
 // Get Students by Branch and Semester
-export const getStudentsByBranchAndSemester = async (req, res) => {
+
+
+export const getStudentsByBranchSemester = async (req, res) => {
   try {
     const { branch, semester } = req.query;
 
     if (!branch || !semester) {
-      return res.status(400).json({ message: "Branch and semester are required" });
+      return res
+        .status(400)
+        .json({ message: "Branch and semester are required" });
     }
 
     const students = await Student.find({
       branch,
       semester: parseInt(semester),
-      isVerified: true, // Optional: Only show verified students
-    }).select("_id first_name last_name student_id");
+    });
 
     res.status(200).json(students);
-  } catch (error) {
-    res.status(500).json({
-      message: "Error fetching students",
-      error: error.message,
-    });
+  } catch (err) {
+    console.error("Error fetching students:", err);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
-

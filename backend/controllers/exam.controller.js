@@ -221,7 +221,7 @@ export const addMarks = async (req, res) => {
 
 export const getExamsByBranchAndSemester = async (req, res) => {
   try {
-    const { branch, semester } = req.params;
+    const { branch, semester } = req.query;
 
     const exams = await Exam.find({ semester }) // Step 1: filter by semester
       .populate({
@@ -238,3 +238,4 @@ export const getExamsByBranchAndSemester = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+

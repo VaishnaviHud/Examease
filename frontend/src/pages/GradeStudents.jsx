@@ -165,16 +165,20 @@ const GradeStudents = () => {
 
   useEffect(() => {
     if (!branch || !semester) return;
+
     const encodedBranch = encodeURIComponent(branch);
 
     axios
-      .get(`http://localhost:4000/api/exams/branch/${encodedBranch}/semester/${semester}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get(
+        `http://localhost:4000/api/exams?branch=${encodedBranch}&semester=${semester}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
       .then((res) => setExams(res.data))
       .catch(() => toast.error("Failed to load exams"));
   }, [branch, semester]);
-
+  
   const fetchStudentsStatus = async () => {
     try {
       const res = await axios.get(
@@ -242,16 +246,25 @@ const GradeStudents = () => {
 
       {/* Filters */}
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <select value={branch} onChange={(e) => setBranch(e.target.value)} className="border p-2">
+        <select
+          value={branch}
+          onChange={(e) => setBranch(e.target.value)}
+          className="border p-2"
+        >
           <option value="">Select Branch</option>
           <option value="Computer Engineering">Computer Engineering</option>
+          <option value="Computer Science">Computer Science</option>
           <option value="Information Technology">Information Technology</option>
           <option value="Mechanical Engineering">Mechanical Engineering</option>
           <option value="EXTC">EXTC</option>
           <option value="Electronics">Electronics</option>
         </select>
 
-        <select value={semester} onChange={(e) => setSemester(e.target.value)} className="border p-2">
+        <select
+          value={semester}
+          onChange={(e) => setSemester(e.target.value)}
+          className="border p-2"
+        >
           <option value="">Select Semester</option>
           {[1, 2, 3, 4, 5, 6, 7, 8].map((s) => (
             <option key={s} value={s}>
@@ -260,7 +273,11 @@ const GradeStudents = () => {
           ))}
         </select>
 
-        <select value={selectedExamId} onChange={(e) => setSelectedExamId(e.target.value)} className="border p-2">
+        <select
+          value={selectedExamId}
+          onChange={(e) => setSelectedExamId(e.target.value)}
+          className="border p-2"
+        >
           <option value="">Select Exam</option>
           {exams.map((exam) => (
             <option key={exam._id} value={exam._id}>
@@ -293,7 +310,11 @@ const GradeStudents = () => {
                     placeholder="Marks Obtained"
                     value={formData[student._id]?.marks_obtained || ""}
                     onChange={(e) =>
-                      handleMarksChange(student._id, "marks_obtained", e.target.value)
+                      handleMarksChange(
+                        student._id,
+                        "marks_obtained",
+                        e.target.value
+                      )
                     }
                     className="border p-2"
                   />
@@ -302,7 +323,11 @@ const GradeStudents = () => {
                     placeholder="Total Marks"
                     value={formData[student._id]?.total_marks || ""}
                     onChange={(e) =>
-                      handleMarksChange(student._id, "total_marks", e.target.value)
+                      handleMarksChange(
+                        student._id,
+                        "total_marks",
+                        e.target.value
+                      )
                     }
                     className="border p-2"
                   />
@@ -321,7 +346,9 @@ const GradeStudents = () => {
 
       {/* Auto Grade Section */}
       <div className="mt-8 p-4 border rounded bg-gray-100">
-        <h3 className="text-xl font-semibold mb-2">Auto Grade using Bell Curve</h3>
+        <h3 className="text-xl font-semibold mb-2">
+          Auto Grade using Bell Curve
+        </h3>
         <select
           onChange={(e) => setSelectedSubjectId(e.target.value)}
           className="border p-2 mr-4"
@@ -329,7 +356,9 @@ const GradeStudents = () => {
         >
           <option value="">Select Subject</option>
           {[...new Set(exams.map((e) => e.subject_id._id))].map((id) => {
-            const subject = exams.find((e) => e.subject_id._id === id)?.subject_id;
+            const subject = exams.find(
+              (e) => e.subject_id._id === id
+            )?.subject_id;
             return (
               <option key={id} value={id}>
                 {subject.subject_name}

@@ -9,9 +9,17 @@ const StudentDashboard = () => {
   useEffect(() => {
     const fetchExams = async () => {
       try {
-        const { data } = await axios.get("http://localhost:4000/api/students/exams", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        console.log("Sending request with:", user);
+
+        const { data } = await axios.get("http://localhost:4000/api/exams", {
+          params: {
+            branch: user.branch,
+            semester: user.semester,
+          },
         });
+        
+        console.log("Exams received:", data);
+
         setExams(data);
       } catch (error) {
         console.error("Error fetching exams", error);
@@ -29,11 +37,18 @@ const StudentDashboard = () => {
       ) : (
         <ul>
           {exams.map((exam) => (
-            <li key={exam.exam_id} className="border p-4 my-2 rounded-lg">
-              <h3 className="font-semibold">{exam.subject_id.name}</h3>
-              <p>Date: {new Date(exam.exam_date).toLocaleDateString()}</p>
-              <p>Duration: {exam.duration}</p>
-              <p>Type: {exam.exam_type}</p>
+            <li key={exam._id} className="border p-4 my-2 rounded-lg">
+              <h3 className="font-semibold">
+                {exam.subject_id?.subject_name || "Unknown Subject"}
+              </h3>
+              <p>
+                Date:{" "}
+                {exam.exam_date
+                  ? new Date(exam.exam_date).toLocaleDateString()
+                  : "Invalid Date"}
+              </p>
+              <p>Duration: {exam.duration || "N/A"} minutes</p>
+              <p>Type: {exam.exam_type || "N/A"}</p>
             </li>
           ))}
         </ul>

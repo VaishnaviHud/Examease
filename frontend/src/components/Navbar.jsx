@@ -75,6 +75,12 @@ const Navbar = () => {
             >
               Grade Students
             </Link>
+            <Link
+              to="/create-assignment"
+              className="hover:text-gray-300 transition"
+            >
+              Create Assignments
+            </Link>
           </>
         )}
 
@@ -87,13 +93,11 @@ const Navbar = () => {
             >
               My Courses
             </Link>
-            <Link to="/assignments" className="hover:text-gray-300 transition">
+            <Link to="/student/subjects" className="hover:text-gray-300 transition">
               Assignments
             </Link>
           </>
         )}
-
-       
       </div>
     </motion.nav>
   );
