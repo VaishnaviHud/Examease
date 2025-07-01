@@ -159,9 +159,17 @@ export const deleteExam = async (req, res) => {
 };
 
 // Get all subjects (for dropdown)
+// export const getAllSubjects = async (req, res) => {
+//   try {
+//     const subjects = await Subject.find().select("subject_id subject_name branch semester");
+//     res.status(200).json(subjects);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 export const getAllSubjects = async (req, res) => {
   try {
-    const subjects = await Subject.find().select("subject_id subject_name branch semester");
+    const subjects = await Subject.find().select("subject_name branch semester");
     res.status(200).json(subjects);
   } catch (error) {
     res.status(500).json({ message: error.message });

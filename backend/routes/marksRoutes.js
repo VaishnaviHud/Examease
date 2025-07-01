@@ -2,6 +2,9 @@ import express from "express";
 // import { addMarks, getStudentsWithGrades } from "../controllers/marks.controller.js";
 import { addMarks, getStudentsWithGrades, autoGradeStudents,getGradesBySubject  } from "../controllers/marks.controller.js";
 import { verifyFaculty } from "../middlewares/authMiddleware.js";
+import { updateMarks, deleteMarks } from "../controllers/marks.controller.js";
+
+
 // routes/marksRoutes.js
 console.log("✅ marksRoutes loaded");
 
@@ -42,6 +45,9 @@ router.get("/students-status", verifyFaculty, getStudentsWithGrades);
 router.get("/auto-grade", verifyFaculty, autoGradeStudents); 
 // router.get("/auto-grade", verifyFaculty, autoGradeStudents);
 router.get("/grades/:subject_id", verifyFaculty, getGradesBySubject);
+router.put("/:mark_id", verifyFaculty, updateMarks);
+router.delete("/:mark_id", verifyFaculty, deleteMarks);
+
 
 export default router;
 // routes/marksRoutes.js

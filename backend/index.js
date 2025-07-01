@@ -11,6 +11,8 @@ import examRoutes from "./routes/examRoutes.js";
 import seatingRoute from "./routes/seatingRoutes.js"
 import cors from "cors";
 import marksRoutes from "./routes/marksRoutes.js";
+// import marksRoutes from "./routes/marks.js";
+
 // import subjectRoutes from "./routes/subjectsRoutes.js";
 
 
@@ -36,6 +38,7 @@ app.use("/api/seating",seatingRoute);
 // app.use("/api/subjects", subjectRoutes); 
 app.use("/api/marks", marksRoutes);
 
+// app.use("/api/marks", marksRoutes);
 // app.use("/api/marks", marksRoutes);
 console.log("✅ marksRoutes mounted at /api/marks");
 
