@@ -14,10 +14,10 @@ import {
   updateStudent,
   deleteStudent,
   getUnverifiedStudents,
-  getStudentsByBranchAndSemester, // ✅ NEW
+  getStudentsByBranchSemester // ✅ NEW
 } from "../controllers/student.controller.js";
 
-router.get('/filter', authMiddleware, getStudentsByBranchAndSemester);
+router.get('/filter', getStudentsByBranchSemester);
 
 
 // GET all students (only authentication required, no role check)

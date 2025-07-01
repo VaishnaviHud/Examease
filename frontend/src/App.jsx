@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./index.css"; 
+import "./index.css";
 import Home from "./pages/Home";
 import AdminDashboard from "./pages/AdminDashboard";
 import AddExam from "./pages/AddExam";
@@ -22,7 +22,12 @@ import ExamList from "./pages/ExamPage";
 import GradeStudents from "./pages/GradeStudents";
 import ViewGrades from "./pages/ViewGrades"; // Adjust path if different
 
-
+import CreateAssignment from "./pages/faculty/CreateAssignment";
+import StudentSubjects from "./pages/student/StudentSubjects";
+import SubjectAssignmentsPage from "./pages/student/SubjectAssignmentsPage";
+import AssignmentDetailsPage from "./pages/student/AssignmentDetailsPage";
+import AssignmentSubmissionsPage from "./pages/faculty/AssignmentSubmissionsPage";
+import EditAssignmentPage from "./pages/faculty/EditAssignmentPage";
 const App = () => {
   return (
     <Router>
@@ -46,10 +51,22 @@ const App = () => {
         <Route path="/subjects" element={<SubjectList />} />
         <Route path="/exampage" element={<ExamList />} />
         <Route path="/grade-students" element={<GradeStudents />} />
-         <Route path="/view-grades" element={<ViewGrades />} />
-
-        
-        
+        <Route path="/view-grades" element={<ViewGrades />} />
+        <Route path="/create-assignment" element={<CreateAssignment />} />
+        <Route path="/student/subjects" element={<StudentSubjects />} />
+        <Route
+          path="/student/subjects/:subjectId"
+          element={<SubjectAssignmentsPage />}
+        />
+        <Route
+          path="/student/assignments/:assignmentId"
+          element={<AssignmentDetailsPage />}
+        />
+        <Route
+          path="/assignment/:assignmentId/submissions"
+          element={<AssignmentSubmissionsPage />}
+        />
+        <Route path="/assignment/edit/:id" element={<EditAssignmentPage />} />
       </Routes>
     </Router>
   );

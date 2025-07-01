@@ -5,7 +5,7 @@ const ExamSchema = new mongoose.Schema({
   subject_id: { type: mongoose.Schema.Types.ObjectId, ref: "Subject" },
   semester: { type: Number, required: true }, // Semester field added
   exam_date: { type: Date, required: true },
-  duration: { type: String, required: true }, // Example: "3 hours"
+  duration: { type: Number, required: true }, // Example: "3 hours"
   exam_type: {
     type: String,
     enum: ["Midterm", "Final", "Practical"],
