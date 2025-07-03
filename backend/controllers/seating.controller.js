@@ -1,7 +1,7 @@
 import Exam from "../models/Exam.js";
-import Room from "../models/Room.js"
+import Room from "../models/Room.js";
 
-import Student from "../models/Student.js"
+import Student from "../models/Student.js";
 
 import Seating from "../models/SeatingArrangement.js";
 // // export const generateSeatingArrangement = async (req, res) => {
@@ -69,11 +69,9 @@ import Seating from "../models/SeatingArrangement.js";
 //   try {
 //     const { exam_id } = req.body;
 
-    
 //     const exam = await Exam.findById(exam_id).populate("students_registered");
 //     if (!exam) return res.status(404).json({ message: "Exam not found" });
 
-  
 //     const existingArrangement = await Seating.findOne({ exam_id });
 //     if (existingArrangement) {
 //       return res.status(400).json({ message: "Seating arrangement already exists for this exam." });
@@ -82,7 +80,6 @@ import Seating from "../models/SeatingArrangement.js";
 //     const students = exam.students_registered;
 //     const totalStudents = students.length;
 
-   
 //     const rooms = await Room.find({}).sort({ capacity: -1 });
 //     if (rooms.length === 0) return res.status(400).json({ message: "No rooms available" });
 
@@ -92,9 +89,8 @@ import Seating from "../models/SeatingArrangement.js";
 //     for (const room of rooms) {
 //       if (studentIndex >= totalStudents) break;
 
-    
 //       const isRoomOccupied = room.exams_scheduled.includes(exam_id);
-//       if (isRoomOccupied) continue; 
+//       if (isRoomOccupied) continue;
 
 //       const seatAllocations = [];
 //       const roomCapacity = room.capacity;
@@ -106,7 +102,6 @@ import Seating from "../models/SeatingArrangement.js";
 //         });
 //       }
 
-  
 //       const seating = new Seating({
 //         exam_id: exam._id,
 //         room_id: room._id,
@@ -116,11 +111,9 @@ import Seating from "../models/SeatingArrangement.js";
 //       await seating.save();
 //       arrangements.push(seating);
 
-    
 //       room.exams_scheduled.push(exam._id);
 //       await room.save();
 //     }
-
 
 //     if (studentIndex < totalStudents) {
 //       return res.status(400).json({
@@ -140,17 +133,16 @@ import Seating from "../models/SeatingArrangement.js";
 
 export const getAllSeatingArrangements = async (req, res) => {
   try {
-   const seatings = await Seating.find()
-  .populate({
-    path: "exam_id",
-    populate: {
-      path: "subject_id",
-      model: "Subject",
-    },
-  })
-  .populate("room_id")
-  .populate("seat_allocations.student_id");
-
+    const seatings = await Seating.find()
+      .populate({
+        path: "exam_id",
+        populate: {
+          path: "subject_id",
+          model: "Subject",
+        },
+      })
+      .populate("room_id")
+      .populate("seat_allocations.student_id");
 
     res.status(200).json(seatings);
   } catch (error) {
@@ -158,7 +150,6 @@ export const getAllSeatingArrangements = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-
 
 // export const generateSeatingArrangement = async (req, res) => {
 //   const { exam_id } = req.body;
@@ -259,18 +250,20 @@ export const getAllSeatingArrangements = async (req, res) => {
 export const generateSeatingArrangement = async (req, res) => {
   const { exam_id } = req.body;
 
-  if (!exam_id) return res.status(400).json({ message: "Exam ID is required." });
+  if (!exam_id)
+    return res.status(400).json({ message: "Exam ID is required." });
 
   try {
-    const exam = await Exam.findById(exam_id)
-      .populate("subject_id");
+    const exam = await Exam.findById(exam_id).populate("subject_id");
 
     if (!exam) return res.status(404).json({ message: "Exam not found." });
 
     // Check if seating already exists for this exam
     const existing = await Seating.findOne({ exam_id });
     if (existing)
-      return res.status(400).json({ message: "Seating arrangement already exists for this exam." });
+      return res
+        .status(400)
+        .json({ message: "Seating arrangement already exists for this exam." });
 
     const examDate = new Date(exam.exam_date).toISOString().split("T")[0];
 
@@ -285,7 +278,9 @@ export const generateSeatingArrangement = async (req, res) => {
     );
 
     if (availableRooms.length === 0) {
-      return res.status(400).json({ message: "No available rooms for this exam date." });
+      return res
+        .status(400)
+        .json({ message: "No available rooms for this exam date." });
     }
 
     // ✅ Get students by branch and semester
@@ -298,7 +293,11 @@ export const generateSeatingArrangement = async (req, res) => {
     const totalStudents = students.length;
 
     if (totalStudents === 0) {
-      return res.status(400).json({ message: "No verified students found for this branch and semester." });
+      return res
+        .status(400)
+        .json({
+          message: "No verified students found for this branch and semester.",
+        });
     }
 
     // Sort students for consistent seat allocation
@@ -353,6 +352,48 @@ export const generateSeatingArrangement = async (req, res) => {
     });
   } catch (error) {
     console.error("Seating Generation Error:", error);
-    res.status(500).json({ message: "Server error during seating generation." });
+    res
+      .status(500)
+      .json({ message: "Server error during seating generation." });
+  }
+};
+
+export const getStudentSeatingDetails = async (req, res) => {
+  const studentId = req.params.studentId;
+
+  try {
+    const seatings = await Seating.find({
+      "seat_allocations.student_id": studentId,
+    })
+      .populate({
+        path: "exam_id",
+        populate: { path: "subject_id", select: "subject_name subject_id" },
+        select: "exam_date exam_type subject_id",
+      })
+      .populate("room_id", "room_number capacity")
+      .lean(); // lean gives plain JS object
+
+    const result = seatings.map((seating) => {
+      const seatInfo = seating.seat_allocations.find(
+        (s) => s.student_id.toString() === studentId
+      );
+
+      return {
+        exam_date: seating.exam_id.exam_date,
+        exam_type: seating.exam_id.exam_type,
+        subject: seating.exam_id.subject_id.subject_name,
+        subject_id: seating.exam_id.subject_id.subject_id,
+        room: {
+          room_number: seating.room_id.room_number,
+          capacity: seating.room_id.capacity,
+        },
+        seat_no: seatInfo?.seat_no || "N/A",
+      };
+    });
+
+    res.status(200).json(result);
+  } catch (err) {
+    console.error("Error fetching seating details:", err);
+    res.status(500).json({ error: "Server error" });
   }
 };
