@@ -92,7 +92,7 @@ const Navbar = () => {
               Assignments
             </Link>
 
-             <Link to="/student/subjects" className="hover:text-gray-300 transition">
+             <Link to="/student/grades" className="hover:text-gray-300 transition">
              View Grades
             </Link>
           </>

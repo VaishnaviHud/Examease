@@ -67,131 +67,7 @@ export const getStudentsWithGrades = async (req, res) => {
 };
 
 
-// export const autoGradeStudents = async (req, res) => {
-//   try {
-//     const { subject_id } = req.query;
 
-//     const exams = await Exam.find({ subject_id }).select("_id exam_type");
-//     const examWeights = { Midterm: 0.2, Final: 0.6, Practical: 0.2 };
-
-//     const allMarks = await Marks.find({ exam_id: { $in: exams.map(e => e._id) } });
-
-//     const studentScores = {}, studentFullMarks = {};
-//     for (const mark of allMarks) {
-//       const weight = examWeights[exams.find(e => e._id.toString() === mark.exam_id.toString())?.exam_type] || 0;
-//       if (!studentScores[mark.student_id]) {
-//         studentScores[mark.student_id] = 0;
-//         studentFullMarks[mark.student_id] = 0;
-//       }
-//       studentScores[mark.student_id] += (mark.marks_obtained / mark.total_marks) * weight * 100;
-//       studentFullMarks[mark.student_id] += weight * 100;
-//     }
-
-//     const studentAverages = Object.entries(studentScores).map(([studentId, score]) => ({
-//       studentId,
-//       avg: score,
-//     }));
-
-//     const mean = studentAverages.reduce((acc, cur) => acc + cur.avg, 0) / studentAverages.length;
-//     const stddev = Math.sqrt(
-//       studentAverages.reduce((acc, cur) => acc + Math.pow(cur.avg - mean, 2), 0) / studentAverages.length
-//     );
-
-//     const gradedResults = studentAverages.map(({ studentId, avg }) => {
-//       let grade = "C";
-//       if (avg >= mean + stddev) grade = "A";
-//       else if (avg >= mean) grade = "B";
-//       else if (avg >= mean - stddev) grade = "C";
-//       else grade = "D";
-
-//       return { studentId, averageScore: avg.toFixed(2), grade };
-//     });
-
-//     // Save to Grading collection
-//     await Grading.deleteMany({ subject_id }); // Remove old grades if any
-//     await Promise.all(
-//       gradedResults.map(r =>
-//         new Grading({
-//           subject_id,
-//           student_id: r.studentId,
-//           grade: r.grade,
-//           averageScore: r.averageScore,
-//           mean,
-//           stddev,
-//         }).save()
-//       )
-//     );
-
-//     res.status(200).json({ mean, stddev, results: gradedResults });
-//   } catch (err) {
-//     res.status(500).json({ message: "Auto-grading failed", error: err.message });
-//   }
-// };
-// export const autoGradeStudents = async (req, res) => {
-//   try {
-//     const { subject_id } = req.query;
-
-//     const exams = await Exam.find({ subject_id }).select("_id exam_type");
-//     const examWeights = { Midterm: 0.2, Final: 0.6, Practical: 0.2 };
-
-//     const allMarks = await Marks.find({ exam_id: { $in: exams.map(e => e._id) } });
-
-//     const studentScores = {}, studentFullMarks = {};
-//     for (const mark of allMarks) {
-//       const weight = examWeights[exams.find(e => e._id.toString() === mark.exam_id.toString())?.exam_type] || 0;
-//       if (!studentScores[mark.student_id]) {
-//         studentScores[mark.student_id] = 0;
-//         studentFullMarks[mark.student_id] = 0;
-//       }
-//       studentScores[mark.student_id] += (mark.marks_obtained / mark.total_marks) * weight * 100;
-//       studentFullMarks[mark.student_id] += weight * 100;
-//     }
-
-//     const studentAverages = Object.entries(studentScores).map(([studentId, score]) => ({
-//       studentId,
-//       avg: score,
-//     }));
-
-//     const mean = studentAverages.reduce((acc, cur) => acc + cur.avg, 0) / studentAverages.length;
-//     const stddev = Math.sqrt(
-//       studentAverages.reduce((acc, cur) => acc + Math.pow(cur.avg - mean, 2), 0) / studentAverages.length
-//     );
-
-//     const gradedResults = studentAverages.map(({ studentId, avg }) => {
-//       let grade = "C";
-//       if (avg >= mean + stddev) grade = "A";
-//       else if (avg >= mean) grade = "B";
-//       else if (avg >= mean - stddev) grade = "C";
-//       else grade = "D";
-
-//       return { studentId, averageScore: avg.toFixed(2), grade };
-//     });
-
-//     // Save to Grading collection
-//     await Grading.deleteMany({ subject_id }); // Remove old grades if any
-//     await Promise.all(
-//       gradedResults.map(r =>
-//         new Grading({
-//           subject_id,
-//           student_id: r.studentId,
-//           grade: r.grade,
-//           averageScore: r.averageScore,
-//           mean,
-//           stddev,
-//         }).save()
-//       )
-//     );
-
-//     // ✅ Refetch with populated student info
-//     const finalResults = await Grading.find({ subject_id })
-//       .populate("student_id", "first_name last_name email")
-//       .sort({ grade: 1 });
-
-//     res.status(200).json({ mean, stddev, results: finalResults });
-//   } catch (err) {
-//     res.status(500).json({ message: "Auto-grading failed", error: err.message });
-//   }
-// };
 
 
 export const autoGradeStudents = async (req, res) => {
@@ -340,5 +216,32 @@ export const deleteMarks = async (req, res) => {
   } catch (error) {
     console.error("Delete Error", error);
     res.status(500).json({ message: "Failed to delete marks", error });
+  }
+};
+
+export const getGradesByStudent = async (req, res) => {
+  try {
+    console.log("📌 Token student object from req.user:", req.user);
+
+    const studentId = req.user?._id;
+
+    if (!studentId) {
+      console.error("❌ No student ID found in token");
+      return res.status(401).json({ message: "Unauthorized. No student ID." });
+    }
+
+    const grades = await Grading.find({ student_id: studentId })
+      .populate({
+        path: "subject_id",
+        select: "subject_name",
+      })
+      .sort({ grade: 1 });
+
+    console.log("✅ Grades fetched:", grades);
+
+    res.status(200).json(grades);
+  } catch (err) {
+    console.error("🔥 Error in getGradesByStudent:", err);
+    res.status(500).json({ message: "Internal Server Error", error: err.message });
   }
 };

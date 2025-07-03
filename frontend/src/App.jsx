@@ -20,7 +20,8 @@ import SeatingPage from "./pages/SeatingPage";
 import RoomsList from "./pages/RoomList";
 import ExamList from "./pages/ExamPage";
 import GradeStudents from "./pages/GradeStudents";
-import ViewGrades from "./pages/ViewGrades"; // Adjust path if different
+// import ViewGrades from "./pages/ViewGrades"; // Adjust path if different
+import StudentGrades from "./pages/StudentGrades";
 
 import CreateAssignment from "./pages/faculty/CreateAssignment";
 import StudentSubjects from "./pages/student/StudentSubjects";
@@ -52,7 +53,7 @@ const App = () => {
         <Route path="/subjects" element={<SubjectList />} />
         <Route path="/exampage" element={<ExamList />} />
         <Route path="/grade-students" element={<GradeStudents />} />
-        <Route path="/view-grades" element={<ViewGrades />} />
+        {/* <Route path="/view-grades" element={<ViewGrades />} /> */}
         <Route path="/create-assignment" element={<CreateAssignment />} />
         <Route path="/student/subjects" element={<StudentSubjects />} />
         <Route
@@ -69,6 +70,8 @@ const App = () => {
         />
         <Route path="/assignment/edit/:id" element={<EditAssignmentPage />} />
          <Route path="/about" element={<AboutUs />} />
+         <Route path="/student/grades" element={<StudentGrades />} />
+
       </Routes>
     </Router>
   );
