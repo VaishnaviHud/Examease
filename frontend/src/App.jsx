@@ -28,6 +28,7 @@ import SubjectAssignmentsPage from "./pages/student/SubjectAssignmentsPage";
 import AssignmentDetailsPage from "./pages/student/AssignmentDetailsPage";
 import AssignmentSubmissionsPage from "./pages/faculty/AssignmentSubmissionsPage";
 import EditAssignmentPage from "./pages/faculty/EditAssignmentPage";
+import AboutUs from "./pages/AboutUs";
 const App = () => {
   return (
     <Router>
@@ -42,7 +43,7 @@ const App = () => {
         <Route path="/student-register" element={<StudentRegister />} />
         <Route path="/teacher-register" element={<TeacherRegister />} />
         {/* Dashboard Routes */}
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/admin-dashboard/*" element={<AdminDashboard />} />
         <Route path="/admin/add-exam" element={<AddExam />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
         <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
@@ -67,6 +68,7 @@ const App = () => {
           element={<AssignmentSubmissionsPage />}
         />
         <Route path="/assignment/edit/:id" element={<EditAssignmentPage />} />
+         <Route path="/about" element={<AboutUs />} />
       </Routes>
     </Router>
   );

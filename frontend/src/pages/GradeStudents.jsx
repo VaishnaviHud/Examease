@@ -761,46 +761,74 @@ const handleDeleteMarks = async (markId) => {
         Load Students
       </button>
 
-      {/* Student List */}
-      {studentsWithGrades.length > 0 && (
-        <div className="space-y-4">
-          {studentsWithGrades.map((student) => (
-            <div key={student._id} className="p-4 border rounded shadow">
-              <p className="font-semibold">{student.name || student.email}</p>
-              {student.graded ? (
-                <p className="text-green-600">Already graded ✅</p>
-              ) : (
-                <div className="grid grid-cols-2 gap-4 mt-2">
-                  <input
-                    type="number"
-                    placeholder="Marks Obtained"
-                    value={formData[student._id]?.marks_obtained || ""}
-                    onChange={(e) =>
-                      handleMarksChange(student._id, "marks_obtained", e.target.value)
-                    }
-                    className="border p-2"
-                  />
-                  <input
-                    type="number"
-                    placeholder="Total Marks"
-                    value={formData[student._id]?.total_marks || ""}
-                    onChange={(e) =>
-                      handleMarksChange(student._id, "total_marks", e.target.value)
-                    }
-                    className="border p-2"
-                  />
-                  <button
-                    onClick={() => handleSubmit(student._id)}
-                    className="col-span-2 bg-green-500 text-white p-2 rounded"
-                  >
-                    Submit Marks
-                  </button>
-                </div>
-              )}
-            </div>
-          ))}
+     
+     {studentsWithGrades.map((student) => (
+  <div key={student._id} className="p-4 border rounded shadow">
+    <p className="font-semibold">{student.name || student.email}</p>
+    {student.graded && student.marks ? (
+      <div>
+        <p className="text-green-600">
+          Already graded ✅ — {student.marks.marks_obtained}/{student.marks.total_marks}
+        </p>
+        <div className="grid grid-cols-2 gap-4 mt-2">
+          <input
+            type="number"
+            placeholder="Edit Marks Obtained"
+            value={formData[student._id]?.marks_obtained ?? student.marks.marks_obtained}
+            onChange={(e) =>
+              handleMarksChange(student._id, "marks_obtained", e.target.value)
+            }
+            className="border p-2"
+          />
+          <input
+            type="number"
+            placeholder="Edit Total Marks"
+            value={formData[student._id]?.total_marks ?? student.marks.total_marks}
+            onChange={(e) =>
+              handleMarksChange(student._id, "total_marks", e.target.value)
+            }
+            className="border p-2"
+          />
+          <button
+            onClick={() => handleEditMarks(student.marks._id, student._id)}
+            className="bg-blue-500 text-white p-2 rounded"
+          >
+            Update
+          </button>
+          <button
+            onClick={() => handleDeleteMarks(student.marks._id)}
+            className="bg-blue-500 text-white p-1 rounded"
+          >
+            Delete
+          </button>
         </div>
-      )}
+      </div>
+    ) : (
+      <div className="grid grid-cols-2 gap-4 mt-2">
+        <input
+          type="number"
+          placeholder="Marks Obtained"
+          value={formData[student._id]?.marks_obtained || ""}
+          onChange={(e) => handleMarksChange(student._id, "marks_obtained", e.target.value)}
+          className="border p-2"
+        />
+        <input
+          type="number"
+          placeholder="Total Marks"
+          value={formData[student._id]?.total_marks || ""}
+          onChange={(e) => handleMarksChange(student._id, "total_marks", e.target.value)}
+          className="border p-2"
+        />
+        <button
+          onClick={() => handleSubmit(student._id)}
+          className="col-span-2 bg-green-500 text-white p-2 rounded"
+        >
+          Submit Marks
+        </button>
+      </div>
+    )}
+  </div>
+))}
 
       <div className="mt-8 p-4 border rounded bg-gray-100">
         <h3 className="text-xl font-semibold mb-2">

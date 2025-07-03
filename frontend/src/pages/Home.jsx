@@ -13,7 +13,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-6">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-blue-400 to-indigo-200 text-white p-6">
       {/* Hero Section */}
       <motion.div
         className="text-center mb-12"

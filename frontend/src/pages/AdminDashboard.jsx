@@ -78,7 +78,7 @@ const AdminDashboard = () => {
         <nav className="p-4">
           <ul className="space-y-2">
             <li>
-              <Link to="/dashboard" className="flex items-center p-3 text-white rounded-lg hover:bg-blue-700 transition-all">
+              <Link to="/admin-dashboard" className="flex items-center p-3 text-white rounded-lg hover:bg-blue-700 transition-all">
                 <span className="ml-2">Dashboard</span>
               </Link>
             </li>

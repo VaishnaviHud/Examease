@@ -178,7 +178,7 @@ const RoomsList = () => {
               <tr className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
                 <th className="p-4 font-semibold">Room No</th>
                 <th className="p-4 font-semibold">Capacity</th>
-                <th className="p-4 font-semibold">Exams Scheduled</th>
+                {/* <th className="p-4 font-semibold">Exams Scheduled</th> */}
               </tr>
             </thead>
             <tbody>
@@ -195,19 +195,36 @@ const RoomsList = () => {
                       {room.capacity} seats
                     </span>
                   </td>
-                  <td className="p-4 text-center">
+                  {/* <td className="p-4 text-center">
                     {room.exams_scheduled && room.exams_scheduled.length > 0 ? (
                       <div className="space-y-1">
-                        {room.exams_scheduled.map((exam, i) => (
-                          <span key={i} className="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full m-1">
-                            {typeof exam === 'object' ? exam.name || 'Exam' : exam}
-                          </span>
-                        ))}
+                        {room.exams_scheduled && room.exams_scheduled.length > 0 ? (
+  <div className="space-y-1">
+    {room.exams_scheduled
+      .filter((exam) => new Date(exam.exam_date) >= new Date()) // ✅ only future or today's exams
+      .map((exam, i) => (
+        <span
+          key={i}
+          className="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full m-1"
+        >
+          {exam.exam_type || 'Exam'} -{" "}
+          {new Date(exam.exam_date).toLocaleDateString("en-IN", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          })}
+        </span>
+      ))}
+  </div>
+) : (
+  <span className="text-gray-500 italic">No upcoming exams</span>
+)}
+
                       </div>
                     ) : (
                       <span className="text-gray-500 italic">No exams scheduled</span>
                     )}
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>

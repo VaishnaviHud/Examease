@@ -197,6 +197,7 @@ export default function SeatingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 p-6">
       <div className="max-w-6xl mx-auto">
+        {/* Generate Seating Form */}
         <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-xl mx-auto mb-12 transition-all duration-300">
           <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
             Generate Seating Arrangement
@@ -211,7 +212,7 @@ export default function SeatingPage() {
             <option value="">-- Select an Exam --</option>
             {exams.map((exam) => (
               <option key={exam._id} value={exam._id}>
-                {exam.subject_id?.subject_name || "Unnamed Subject"} -{" "}
+                {exam.subject_id?.subject_name || "Unnamed Subject"} - {exam.exam_type} –{" "}
                 {new Date(exam.exam_date).toLocaleDateString()}
               </option>
             ))}
@@ -234,7 +235,9 @@ export default function SeatingPage() {
 
         {/* Seating Display Section */}
         <div className="bg-white shadow-xl rounded-xl p-6">
-          <h2 className="text-2xl font-bold text-center text-gray-700 mb-6">All Seating Arrangements</h2>
+          <h2 className="text-2xl font-bold text-center text-gray-700 mb-6">
+            All Seating Arrangements
+          </h2>
 
           {seatingLoading ? (
             <p className="text-center text-gray-500">Loading seating data...</p>
@@ -244,7 +247,7 @@ export default function SeatingPage() {
             Object.values(groupedSeating).map(({ exam, rooms }, idx) => (
               <div key={idx} className="mb-10 border-t pt-6">
                 <h3 className="text-xl font-semibold text-indigo-600 mb-4">
-                  {exam?.subject_id?.subject_name || "Unnamed Subject"} –{" "}
+                  {exam?.subject_id?.subject_name || "Unnamed Subject"} – {exam.exam_type} –{" "}
                   {new Date(exam?.exam_date).toLocaleDateString()}
                 </h3>
 
@@ -255,7 +258,6 @@ export default function SeatingPage() {
                   >
                     <h4 className="text-md font-semibold text-gray-700 mb-2">
                       Room: {room.room_id?.room_no || "Unknown"}
-
                     </h4>
                     <table className="w-full border-collapse border text-sm">
                       <thead className="bg-gray-200">
@@ -270,8 +272,9 @@ export default function SeatingPage() {
                           <tr key={j}>
                             <td className="border px-3 py-1">{seat.seat_no}</td>
                             <td className="border px-3 py-1">
-                             {seat.student_id ? `${seat.student_id.first_name} ${seat.student_id.last_name}` : "N/A"}
-
+                              {seat.student_id
+                                ? `${seat.student_id.first_name} ${seat.student_id.last_name}`
+                                : "N/A"}
                             </td>
                             <td className="border px-3 py-1">
                               {seat.student_id?.student_id}

@@ -41,9 +41,6 @@ const Navbar = () => {
         <Link to="/" className="hover:text-gray-300 transition">
           Home
         </Link>
-        <Link to="/about" className="hover:text-gray-300 transition">
-          About
-        </Link>
 
         {/* Admin Links */}
         {role === "admin" && (
@@ -54,21 +51,19 @@ const Navbar = () => {
             >
               Dashboard
             </Link>
-            <Link to="/manage-users" className="hover:text-gray-300 transition">
-              Manage Users
-            </Link>
+            
           </>
         )}
 
         {/* Teacher Links */}
         {role === "teacher" && (
           <>
-            <Link
+            {/* <Link
               to="/teacher-dashboard"
               className="hover:text-gray-300 transition"
             >
               My Courses
-            </Link>
+            </Link> */}
             <Link
               to="/grade-students"
               className="hover:text-gray-300 transition"
@@ -91,13 +86,20 @@ const Navbar = () => {
               to="/student-dashboard"
               className="hover:text-gray-300 transition"
             >
-              My Courses
+              Exams
             </Link>
             <Link to="/student/subjects" className="hover:text-gray-300 transition">
               Assignments
             </Link>
+
+             <Link to="/student/subjects" className="hover:text-gray-300 transition">
+             View Grades
+            </Link>
           </>
         )}
+        <Link to="/about" className="hover:text-gray-300 transition">
+          About
+        </Link>
       </div>
     </motion.nav>
   );

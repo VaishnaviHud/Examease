@@ -69,18 +69,33 @@ export const createExam = async (req, res) => {
 
 
 // Get all exams
+// export const getAllExams = async (req, res) => {
+//   try {
+//     const exams = await Exam.find()
+//       .populate("subject_id", "subject_name branch semester")
+//       .populate("students_registered", "student_id first_name last_name")
+//       .populate("supervisors", "teacher_id first_name last_name");
+    
+//     res.status(200).json(exams);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 export const getAllExams = async (req, res) => {
   try {
-    const exams = await Exam.find()
+    const exams = await Exam.find({
+      exam_date: { $gte: new Date() }  // ✅ Only future or today's exams
+    })
       .populate("subject_id", "subject_name branch semester")
       .populate("students_registered", "student_id first_name last_name")
       .populate("supervisors", "teacher_id first_name last_name");
-    
+
     res.status(200).json(exams);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Get exam by ID
 export const getExamById = async (req, res) => {
