@@ -51,7 +51,6 @@ const Navbar = () => {
             >
               Dashboard
             </Link>
-            
           </>
         )}
 
@@ -64,6 +63,12 @@ const Navbar = () => {
             >
               My Courses
             </Link> */}
+            <Link
+              to="/teacher-profile"
+              className="hover:text-gray-300 transition"
+            >
+              Profile
+            </Link>
             <Link
               to="/grade-students"
               className="hover:text-gray-300 transition"
@@ -83,17 +88,29 @@ const Navbar = () => {
         {role === "student" && (
           <>
             <Link
+              to="/student-profile"
+              className="hover:text-gray-300 transition"
+            >
+              Profile
+            </Link>
+            <Link
               to="/student-dashboard"
               className="hover:text-gray-300 transition"
             >
               Exams
             </Link>
-            <Link to="/student/subjects" className="hover:text-gray-300 transition">
+            <Link
+              to="/student/subjects"
+              className="hover:text-gray-300 transition"
+            >
               Assignments
             </Link>
 
-             <Link to="/student/grades" className="hover:text-gray-300 transition">
-             View Grades
+            <Link
+              to="/student/grades"
+              className="hover:text-gray-300 transition"
+            >
+              View Grades
             </Link>
           </>
         )}

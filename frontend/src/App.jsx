@@ -31,6 +31,8 @@ import AssignmentSubmissionsPage from "./pages/faculty/AssignmentSubmissionsPage
 import EditAssignmentPage from "./pages/faculty/EditAssignmentPage";
 import AboutUs from "./pages/AboutUs";
 import StudentSeatingPage from "./pages/StudentSeatingPage";
+import StudentProfile from "./pages/StudentProfile";
+import TeacherProfile from "./pages/TeacherProfile";
 const App = () => {
   return (
     <Router>
@@ -65,6 +67,8 @@ const App = () => {
           path="/student/assignments/:assignmentId"
           element={<AssignmentDetailsPage />}
         />
+        <Route path="/student-profile" element={<StudentProfile />} />
+        <Route path="/teacher-profile" element={<TeacherProfile />} />
         <Route
           path="/assignment/:assignmentId/submissions"
           element={<AssignmentSubmissionsPage />}

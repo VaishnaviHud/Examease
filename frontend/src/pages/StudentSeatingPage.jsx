@@ -97,7 +97,7 @@ const StudentSeatingPage = () => {
                 <td className="py-2 px-4 border-b">
                   {new Date(s.exam_date).toLocaleDateString()}
                 </td>
-                <td className="py-2 px-4 border-b">{s.room.room_number}</td>
+                <td className="py-2 px-4 border-b">{s.room.room_no}</td>
                 <td className="py-2 px-4 border-b text-green-700 font-semibold">
                   {s.seat_no}
                 </td>

@@ -73,7 +73,7 @@ const AssignmentDetails = ({ assignment, studentId, refresh }) => {
             transition={{ duration: 0.4 }}
           >
             <p className="text-green-800 font-medium mb-1">
-              ✅ Submitted on:{" "}
+              Submitted on:{" "}
               {new Date(submission.submittedAt).toLocaleString()}
             </p>
             <a
@@ -82,7 +82,7 @@ const AssignmentDetails = ({ assignment, studentId, refresh }) => {
               rel="noreferrer"
               className="text-blue-600 underline text-sm"
             >
-              📄 View Submitted File
+              View Submitted File
             </a>
             {submission.marks !== undefined && (
               <div className="mt-2 text-sm text-gray-700 space-y-1">
@@ -103,7 +103,7 @@ const AssignmentDetails = ({ assignment, studentId, refresh }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
           >
-            ❌ You have not submitted this assignment yet.
+            You have not submitted this assignment yet.
           </motion.p>
         )}
       </AnimatePresence>
@@ -136,7 +136,7 @@ const AssignmentDetails = ({ assignment, studentId, refresh }) => {
       {/* Deadline Passed Message */}
       {isPastDeadline && !submission && (
         <p className="text-red-600 mt-4 text-sm font-semibold">
-          ⛔ Deadline has passed. You can no longer submit.
+          Deadline has passed. You can no longer submit.
         </p>
       )}
     </motion.div>

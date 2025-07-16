@@ -370,7 +370,7 @@ export const getStudentSeatingDetails = async (req, res) => {
         populate: { path: "subject_id", select: "subject_name subject_id" },
         select: "exam_date exam_type subject_id",
       })
-      .populate("room_id", "room_number capacity")
+      .populate("room_id", "room_no capacity")
       .lean(); // lean gives plain JS object
 
     const result = seatings.map((seating) => {
@@ -384,7 +384,7 @@ export const getStudentSeatingDetails = async (req, res) => {
         subject: seating.exam_id.subject_id.subject_name,
         subject_id: seating.exam_id.subject_id.subject_id,
         room: {
-          room_number: seating.room_id.room_number,
+          room_no: seating.room_id.room_no,
           capacity: seating.room_id.capacity,
         },
         seat_no: seatInfo?.seat_no || "N/A",

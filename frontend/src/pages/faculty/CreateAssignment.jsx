@@ -94,7 +94,7 @@ const CreateAssignment = () => {
   return (
     <div className="p-6 max-w-5xl mx-auto">
       <h2 className="text-3xl font-bold mb-6 text-blue-800">
-        📚 Create Assignment
+        Create Assignment
       </h2>
 
       {/* Subject Selection */}
@@ -118,16 +118,16 @@ const CreateAssignment = () => {
         {selectedSubject && (
           <div className="mt-4 text-sm text-gray-700">
             <p>
-              <strong>📘 Subject:</strong> {selectedSubject.subject_name}
+              <strong>Subject:</strong> {selectedSubject.subject_name}
             </p>
             <p>
-              <strong>📍 Branch:</strong> {selectedSubject.branch}
+              <strong>Branch:</strong> {selectedSubject.branch}
             </p>
             <p>
-              <strong>🎓 Semester:</strong> {selectedSubject.semester}
+              <strong>Semester:</strong> {selectedSubject.semester}
             </p>
             <p>
-              <strong>👥 Students:</strong> {students.length}
+              <strong>Students:</strong> {students.length}
             </p>
           </div>
         )}
@@ -139,7 +139,7 @@ const CreateAssignment = () => {
         className="bg-white shadow-lg p-6 rounded-lg mb-8 border"
       >
         <h3 className="text-xl font-semibold mb-4 text-blue-700">
-          📝 Assignment Details
+          Assignment Details
         </h3>
 
         <input
@@ -173,14 +173,14 @@ const CreateAssignment = () => {
           type="submit"
           className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded shadow-md transition"
         >
-          ➕ Create Assignment
+          Create Assignment
         </button>
       </form>
 
       {/* Assignment Cards */}
       <div className="bg-gray-50 p-6 rounded-lg shadow-inner border">
         <h3 className="text-2xl font-bold mb-4 text-gray-800">
-          📂 Existing Assignments
+          Existing Assignments
         </h3>
 
         {assignments.length === 0 ? (

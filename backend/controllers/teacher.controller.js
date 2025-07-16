@@ -63,17 +63,31 @@ export const loginTeacher = async (req, res) => {
     if (!teacher.isVerified)
       return res.status(403).json({ message: "Account not verified by admin" });
 
-    const token = jwt.sign(
-      { id: teacher._id, role: teacher.role },
-      process.env.JWT_SECRET,
-      { expiresIn: "1d" }
-    );
+    // Include relevant fields in token so frontend gets all profile info from jwtDecode()
+    const tokenPayload = {
+      id: teacher._id,
+      role: teacher.role,
+      teacher_id: teacher.teacher_id,
+      email: teacher.email,
+      first_name: teacher.first_name,
+      last_name: teacher.last_name,
+      department: teacher.department,
+      is_supervisor: teacher.is_supervisor,
+    };
 
-    res.status(200).json({ message: "Login successful", token, teacher });
+    const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+
+    res.status(200).json({
+      message: "Login successful",
+      token,
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 
 // Get Teacher by ID
 export const getTeacher = async (req, res) => {

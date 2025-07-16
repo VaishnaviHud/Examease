@@ -104,10 +104,13 @@ export const loginStudent = async (req, res) => {
     const token = jwt.sign(
       {
         id: student._id,
+        student_id: student.student_id,
         email: student.email,
-        role: "student", // or student.role if available
+        role: "student",
         branch: student.branch,
         semester: student.semester,
+        first_name: student.first_name,
+        last_name: student.last_name,
       },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
@@ -270,3 +273,4 @@ export const getStudentsByBranchSemester = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+

@@ -77,7 +77,7 @@ const SubmissionList = ({ submissions, assignmentId, refresh }) => {
       <div className="mb-4 flex flex-wrap items-center gap-4">
         <input
           type="text"
-          placeholder="🔍 Search student..."
+          placeholder="Search student..."
           className="border border-gray-300 p-2 rounded w-64"
           value={search}
           onChange={(e) => {
@@ -118,18 +118,18 @@ const SubmissionList = ({ submissions, assignmentId, refresh }) => {
             >
               <div className="mb-3">
                 <p className="font-semibold text-blue-800">
-                  👤 {s.student?.first_name} {s.student?.last_name}
+                  {s.student?.first_name} {s.student?.last_name}
                 </p>
                 <p className="text-gray-600 text-sm">{s.student?.email}</p>
               </div>
 
               <p className="mb-1 text-gray-700">
-                📅 <strong>Submitted:</strong>{" "}
+                <strong>Submitted:</strong>{" "}
                 {new Date(s.submittedAt).toLocaleString()}
               </p>
 
               <p className="mb-3 text-gray-700">
-                📎 <strong>File:</strong>{" "}
+                 <strong>File:</strong>{" "}
                 <a
                   href={s.fileUrl}
                   target="_blank"
@@ -162,7 +162,7 @@ const SubmissionList = ({ submissions, assignmentId, refresh }) => {
                   onClick={() => handleSubmit(s.student._id)}
                   className="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-medium px-4 py-2 rounded hover:scale-105 hover:shadow-md transition-all"
                 >
-                  💾 Save Grade
+                  Save Grade
                 </button>
               </div>
             </li>

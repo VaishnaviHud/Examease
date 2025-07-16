@@ -14,7 +14,7 @@ const StudentSubjects = () => {
       try {
         const { data } = await axios.get(`/api/subjects/student/${user?.id}`);
         setSubjects(data);
-        if (data.length) setSelected(data[0]); // auto-select first subject
+        if (data.length) setSelected(data[0]); 
       } catch (error) {
         console.error("Failed to fetch subjects", error);
       }
@@ -33,7 +33,7 @@ const StudentSubjects = () => {
       {/* Main panel */}
       <div className="flex-1 p-6 transition-all duration-300">
         <h2 className="text-xl font-semibold text-blue-800 mb-4">
-          📘 My Subjects
+          My Subjects
         </h2>
 
         {selected ? (

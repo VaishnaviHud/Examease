@@ -5,10 +5,10 @@ const StudentGrades = () => {
   const [grades, setGrades] = useState([]);
   const [error, setError] = useState("");
 
-  const token = localStorage.getItem("token"); // JWT token from login
+  const token = localStorage.getItem("token"); 
 
  useEffect(() => {
-  console.log("🎟️ Token:", token);
+  
 
   const fetchGrades = async () => {
     const token = localStorage.getItem("token");
@@ -37,7 +37,7 @@ const StudentGrades = () => {
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">📊 My Grades</h2>
+      <h2 className="text-2xl font-bold mb-4">My Grades</h2>
 
       {error && <p className="text-red-500 font-medium mb-4">{error}</p>}
 

@@ -24,7 +24,7 @@ const SubjectCard = ({ subj }) => {
       {/* Info */}
       <div className="text-sm text-gray-600 space-y-1">
         <p>
-          👨‍🏫 Professor: {subj.faculty_id?.first_name}{" "}
+          Professor: {subj.faculty_id?.first_name}{" "}
           {subj.faculty_id?.last_name}
         </p>
       </div>

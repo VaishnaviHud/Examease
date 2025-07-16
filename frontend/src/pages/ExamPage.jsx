@@ -88,7 +88,7 @@ const ExamList = () => {
             onClick={() => setShowForm(!showForm)}
             className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md flex items-center"
           >
-            <span className="mr-1 text-xl">+</span> Add Exam
+            <span className="mr-1 text-xl"></span> Add Exam
           </button>
         </div>
 

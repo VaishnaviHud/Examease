@@ -2,8 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { MoreVertical } from "lucide-react"; // Optional: replace with ⋮ if no icon library
-
+import { MoreVertical } from "lucide-react";
 const AssignmentCard = ({ assignment,  refreshAssignments }) => {
   const navigate = useNavigate();
   const isPastDeadline = new Date(assignment.dueDate) < new Date();
@@ -69,7 +68,7 @@ const AssignmentCard = ({ assignment,  refreshAssignments }) => {
                 }}
                 className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm"
               >
-                ✏️ Edit
+                Edit
               </button>
               <button
                 onClick={() => {
@@ -78,7 +77,7 @@ const AssignmentCard = ({ assignment,  refreshAssignments }) => {
                 }}
                 className="block w-full text-left px-4 py-2 hover:bg-red-100 text-sm text-red-600"
               >
-                🗑 Delete
+                Delete
               </button>
             </div>
           )}
@@ -104,7 +103,7 @@ const AssignmentCard = ({ assignment,  refreshAssignments }) => {
         onClick={() => navigate(`/assignment/${assignment._id}/submissions`)}
         className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-1 rounded-md text-sm transition duration-200"
       >
-        📄 View Submissions
+        View Submissions
       </button>
     </div>
   );

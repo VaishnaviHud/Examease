@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      setUser(jwtDecode(token)); // Decode JWT to extract user details
+      setUser(jwtDecode(token));
     }
   }, []);
 
