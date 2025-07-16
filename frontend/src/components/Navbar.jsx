@@ -112,6 +112,10 @@ const Navbar = () => {
             >
               View Grades
             </Link>
+
+             <Link to="/student/seating" className="hover:text-gray-300 transition">
+               Seating
+            </Link>
           </>
         )}
         <Link to="/about" className="hover:text-gray-300 transition">
