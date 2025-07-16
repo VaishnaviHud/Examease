@@ -11,6 +11,8 @@ import examRoutes from "./routes/examRoutes.js";
 import seatingRoute from "./routes/seatingRoutes.js"
 import cors from "cors";
 import marksRoutes from "./routes/marksRoutes.js";
+import "./controllers/cleanupScheduler.js"; // Must be placed after DB connection
+
 // import marksRoutes from "./routes/marks.js";
 
 import assignmentRoutes from "./routes/assignmentRoutes.js"

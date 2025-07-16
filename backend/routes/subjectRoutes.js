@@ -14,6 +14,11 @@ router.post("/add", async (req, res) => {
     const newSubject = new Subject({ subject_id, subject_name, branch, semester, faculty_id });
     await newSubject.save();
 
+     await Student.updateMany(
+      { branch, semester },
+      { $addToSet: { subjects_enrolled: newSubject._id } }
+    );
+
     res.status(201).json({ message: "Subject added successfully!", subject: newSubject });
   } catch (error) {
     res.status(500).json({ error: error.message });
